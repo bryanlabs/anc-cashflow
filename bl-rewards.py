@@ -5,12 +5,9 @@ import argparse
 BONDED_QUERY = '{\n rewardState: WasmContractsContractAddressStore(\n ContractAddress: \"terra17yap3mhph35pcwvhza38c2lkj7gzywzy05h7l0\"\n QueryMsg: \"{\\\"state\\\":{}}\"\n ) {\n Result\n Height\n }\n claimableReward: WasmContractsContractAddressStore(\n ContractAddress: \"terra17yap3mhph35pcwvhza38c2lkj7gzywzy05h7l0\"\n QueryMsg: \"{\\\"holder\\\":{\\\"address\\\":\\\"<holder_address>\\\"}}\"\n ) {\n Result\n Height\n }\n}\n'
 URL = "https://mantle.terra.dev/?bond--claimable-rewards"
 
-#[Holder Balance * (Global Index – Holder Index)] + Pending Rewards
+#[Holder Balance * (Global Index - Holder Index)] + Pending Rewards
 #Found in source code of AnchorProtocol Application, still trying to figure out what this means
-#Steps to reproduce: 
-# Open debugger on the app
-# Navigate through the javascript source code
-# src/pages/bond/logics/claimableRewards.ts
+#https://github.com/Anchor-Protocol/anchor-web-app/blob/master/app/src/pages/bond/logics/claimableRewards.ts
 def calculate_claimable_rewards(data):
     claimable_reward = json.loads(data["data"]["claimableReward"]["Result"])
     reward_state = json.loads(data["data"]["rewardState"]["Result"])
@@ -64,7 +61,7 @@ def main():
     split = str(bluna_claimable_rewards).split(".")
     int_part = split[0]
     float_part = split[1][:3]
-    print(int_part + "." + float_part)
+    print(int_part + "." + float_part, "UST")
 
 if __name__ == "__main__":
     main()
